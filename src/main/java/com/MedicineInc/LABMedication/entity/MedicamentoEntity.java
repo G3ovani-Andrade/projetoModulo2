@@ -3,12 +3,15 @@ package com.MedicineInc.LABMedication.entity;
 import com.MedicineInc.LABMedication.enums.TipoMedicamentoEnum;
 import com.MedicineInc.LABMedication.enums.UnidadeEnum;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="medicamento")
+@Getter @Setter
 public class MedicamentoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
