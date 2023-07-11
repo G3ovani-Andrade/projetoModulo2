@@ -1,8 +1,7 @@
 package com.MedicineInc.LABMedication.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.MedicineInc.LABMedication.enums.EspecializacaoClinicaEnum;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,9 +14,10 @@ import lombok.Setter;
 public class UsuarioEntity extends PessoaEntity{
     @Column(nullable = false)
     private String crmUf;
+
     @Column(nullable = false)
-    private String especializacao;
-    @Column(nullable = false)
+    private EspecializacaoClinicaEnum especializacao;
+
     @Size(min = 8, message = "tamanho mínimo 8 caracteres")
     @Size(max = 15, message = "tamanho maximo 15 caracteres")
     private String senha;
