@@ -16,4 +16,20 @@ public enum EspecializacaoClinicaEnum {
         this.descricao = descricao;
         Valor = valor;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public int getValor() {
+        return Valor;
+    }
+
+    public void setValor(int valor) {
+        Valor = valor;
+    }
 }
