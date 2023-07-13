@@ -25,7 +25,6 @@ public class UsuarioResponseDto {
     @NotBlank(message = "Nome Obrigatório")
     private String nomeCompleto;
 
-
     @NotBlank(message = "Gênero Obrigatório")
     private String genero;
 
@@ -58,8 +57,8 @@ public class UsuarioResponseDto {
 
     @NotNull(message = "Especialização Obrigatório")
     private EspecializacaoClinicaEnum especializacao;
-    
-    @NotNull(message = "Campo senha obrigatório")
+
+    @NotBlank(message = "Campo senha obrigatório")
     @Size(min = 8, message = "tamanho mínimo 8 caracteres")
     @Size(max = 15, message = "tamanho maximo 15 caracteres")
     private String senha;
