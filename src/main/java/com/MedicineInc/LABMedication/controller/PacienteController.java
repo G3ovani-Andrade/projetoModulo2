@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/pacientes")
@@ -33,7 +30,19 @@ public class PacienteController {
         catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @PutMapping(value = "/{identificador}")
+    public ResponseEntity<PacienteResponseDto> atualizarPaciente(@PathVariable Long identificador,@RequestBody @Valid PacienteCadastroDto pacienteAtualizado){
+        try {
+            return new ResponseEntity(this.service.atualizarPaciente(identificador,pacienteAtualizado),HttpStatus.OK);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }catch (DataIntegrityViolationException e) {
+            return new ResponseEntity("Cpf já Cadastrado", HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
 
     }
 }
