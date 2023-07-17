@@ -45,11 +45,19 @@ public class PacienteController {
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @GetMapping
     public ResponseEntity<List<PacienteResponseDto>> buscarPacientes(@RequestParam(required = false)String nome){
         return new ResponseEntity<>(this.service.buscarPacientes(nome),HttpStatus.OK);
+    }
+
+    @GetMapping("/{identificador}")
+    public ResponseEntity<PacienteResponseDto> buscarPacientePorId(@PathVariable Long identificador){
+        try {
+            return new ResponseEntity<PacienteResponseDto>(this.service.buscarPacientePorId(identificador),HttpStatus.OK);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
     }
 }

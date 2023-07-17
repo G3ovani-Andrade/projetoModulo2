@@ -43,13 +43,13 @@ public class PacienteService {
         EnderecoEntity enderecoBd = new EnderecoEntity();
         PacienteResponseDto responseDto = new PacienteResponseDto();
         EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
-        pacienteBd = this.repository.findById(id).orElseThrow(()->new EntityNotFoundException("Usuário não encontrado"));
-        enderecoBd = this.repositoryEndereco.findById(pacienteAtualizado.getEndereco().getId()).orElseThrow(()->new EntityNotFoundException("Endereço não encontrado"));
+        pacienteBd = this.repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+        enderecoBd = this.repositoryEndereco.findById(pacienteAtualizado.getEndereco().getId()).orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
         BeanUtils.copyProperties(pacienteAtualizado, pacienteBd);
         pacienteBd.setEndereco(enderecoBd);
         pacienteBd = this.repository.save(pacienteBd);
-        BeanUtils.copyProperties(pacienteBd,responseDto);
-        BeanUtils.copyProperties(pacienteBd.getEndereco(),enderecoDto);
+        BeanUtils.copyProperties(pacienteBd, responseDto);
+        BeanUtils.copyProperties(pacienteBd.getEndereco(), enderecoDto);
         responseDto.setEndereco(enderecoDto);
         return responseDto;
     }
@@ -57,20 +57,30 @@ public class PacienteService {
     public List<PacienteResponseDto> buscarPacientes(String nomePaciente) {
         List<PacienteResponseDto> pacientesDto = new ArrayList<>();
         List<PacienteEntity> pacientesDb;
-        if(nomePaciente == null || nomePaciente.isEmpty()){
+        if (nomePaciente == null || nomePaciente.isEmpty()) {
             pacientesDb = this.repository.findAll();
-        }else {
-            pacientesDb= this.repository.findByNomeCompletoContains(nomePaciente);
+        } else {
+            pacientesDb = this.repository.findByNomeCompletoContains(nomePaciente);
         }
 
-        for(PacienteEntity paciente : pacientesDb){
+        for (PacienteEntity paciente : pacientesDb) {
             EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
             PacienteResponseDto pacienteDto = new PacienteResponseDto();
-            BeanUtils.copyProperties(paciente,pacienteDto);
-            BeanUtils.copyProperties(paciente.getEndereco(),enderecoDto);
+            BeanUtils.copyProperties(paciente, pacienteDto);
+            BeanUtils.copyProperties(paciente.getEndereco(), enderecoDto);
             pacienteDto.setEndereco(enderecoDto);
             pacientesDto.add(pacienteDto);
         }
         return pacientesDto;
+    }
+
+    public PacienteResponseDto buscarPacientePorId(Long identificador) {
+        PacienteResponseDto pacienteDto = new PacienteResponseDto();
+        EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
+        PacienteEntity pacienteDb = this.repository.findById(identificador).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+        BeanUtils.copyProperties(pacienteDb, pacienteDto);
+        BeanUtils.copyProperties(pacienteDb.getEndereco(), enderecoDto);
+        pacienteDto.setEndereco(enderecoDto);
+        return pacienteDto;
     }
 }
