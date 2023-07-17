@@ -12,6 +12,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PacienteService {
     @Autowired
@@ -49,5 +52,25 @@ public class PacienteService {
         BeanUtils.copyProperties(pacienteBd.getEndereco(),enderecoDto);
         responseDto.setEndereco(enderecoDto);
         return responseDto;
+    }
+
+    public List<PacienteResponseDto> buscarPacientes(String nomePaciente) {
+        List<PacienteResponseDto> pacientesDto = new ArrayList<>();
+        List<PacienteEntity> pacientesDb;
+        if(nomePaciente == null || nomePaciente.isEmpty()){
+            pacientesDb = this.repository.findAll();
+        }else {
+            pacientesDb= this.repository.findByNomeCompletoContains(nomePaciente);
+        }
+
+        for(PacienteEntity paciente : pacientesDb){
+            EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
+            PacienteResponseDto pacienteDto = new PacienteResponseDto();
+            BeanUtils.copyProperties(paciente,pacienteDto);
+            BeanUtils.copyProperties(paciente.getEndereco(),enderecoDto);
+            pacienteDto.setEndereco(enderecoDto);
+            pacientesDto.add(pacienteDto);
+        }
+        return pacientesDto;
     }
 }
