@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteController {
@@ -44,5 +46,10 @@ public class PacienteController {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PacienteResponseDto>> buscarPacientes(@RequestParam(required = false)String nome){
+        return new ResponseEntity<>(this.service.buscarPacientes(nome),HttpStatus.OK);
     }
 }
