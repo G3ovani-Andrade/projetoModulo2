@@ -60,4 +60,17 @@ public class PacienteController {
             return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @DeleteMapping("/{identificador}")
+    public ResponseEntity<Void> deletarPaciente(@PathVariable Long identificador){
+        try {
+            this.service.deletarPaciente(identificador);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }
