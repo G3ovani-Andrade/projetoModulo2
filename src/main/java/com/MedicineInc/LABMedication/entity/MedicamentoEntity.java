@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name="medicamento")
@@ -29,13 +28,13 @@ public class MedicamentoEntity {
 
     //mappeamento para medico
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "usuario_id",nullable = false)
     private UsuarioEntity usuario;
 
     // mappeamento para paciente
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "paciente_id",nullable = false)
     private PacienteEntity paciente;
 

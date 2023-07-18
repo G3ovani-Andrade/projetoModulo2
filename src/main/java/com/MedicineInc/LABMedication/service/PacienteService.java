@@ -4,8 +4,10 @@ import com.MedicineInc.LABMedication.dto.EnderecoResponseDto;
 import com.MedicineInc.LABMedication.dto.PacienteCadastroDto;
 import com.MedicineInc.LABMedication.dto.PacienteResponseDto;
 import com.MedicineInc.LABMedication.entity.EnderecoEntity;
+import com.MedicineInc.LABMedication.entity.MedicamentoEntity;
 import com.MedicineInc.LABMedication.entity.PacienteEntity;
 import com.MedicineInc.LABMedication.repository.EnderecoRepository;
+import com.MedicineInc.LABMedication.repository.MedicamentoRepository;
 import com.MedicineInc.LABMedication.repository.PacienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
@@ -21,6 +23,8 @@ public class PacienteService {
     private PacienteRepository repository;
     @Autowired
     private EnderecoRepository repositoryEndereco;
+    @Autowired
+    private MedicamentoRepository repositoryMedicamento;
 
     public PacienteResponseDto cadastrarPaciente(PacienteCadastroDto novoPaciente) {
         PacienteEntity paciente = new PacienteEntity();//cria um novo Paciente
@@ -82,5 +86,14 @@ public class PacienteService {
         BeanUtils.copyProperties(pacienteDb.getEndereco(), enderecoDto);
         pacienteDto.setEndereco(enderecoDto);
         return pacienteDto;
+    }
+
+    public void deletarPaciente(Long identificador) throws Exception {
+        this.repository.findById(identificador).orElseThrow(()-> new EntityNotFoundException("Usuário não encontrado"));
+        List<MedicamentoEntity> medicamentos = this.repositoryMedicamento.findByPacienteId(identificador);
+        if(medicamentos.size()>0){
+            throw new Exception("Usuários com medicamentos não podem ser excluídos");
+        }
+        this.repository.deleteById(identificador);
     }
 }
