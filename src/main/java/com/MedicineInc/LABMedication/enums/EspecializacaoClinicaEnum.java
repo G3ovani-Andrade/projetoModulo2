@@ -1,35 +1,22 @@
 package com.MedicineInc.LABMedication.enums;
 
 public enum EspecializacaoClinicaEnum {
-    GERAL(1,"Geral"),
-    ANESTESISTA(2,"Anestesista"),
-    DERMATOLOGIA(3,"Dermatologia"),
-    GINECOLOGIA(4,"Ginecologia"),
-    NEUROLOGIA(5,"Neurologia"),
-    PEDIATRIA(6,"Pediatria"),
-    PSIQUIATRIA(7,"Psiquiatria"),
-    ORTOPEDIA(8,"Ortopedia");
-    private String descricao;
-    private int Valor;
+    GERAL("Geral"),
+    ANESTESISTA("Anestesista"),
+    DERMATOLOGIA("Dermatologia"),
+    GINECOLOGIA("Ginecologia"),
+    NEUROLOGIA("Neurologia"),
+    PEDIATRIA("Pediatria"),
+    PSIQUIATRIA("Psiquiatria"),
+    ORTOPEDIA("Ortopedia");
+    private final String descricao;
 
-    EspecializacaoClinicaEnum(int valor,String descricao) {
+    EspecializacaoClinicaEnum(String descricao) {
         this.descricao = descricao;
-        Valor = valor;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public int getValor() {
-        return Valor;
-    }
-
-    public void setValor(int valor) {
-        Valor = valor;
-    }
 }

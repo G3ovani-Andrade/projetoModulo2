@@ -10,7 +10,7 @@ public enum TipoMedicamentoEnum {
     INJECAO("Injeção"),
     SPRAY("Spray");
 
-    private String descricao;
+    private final String descricao;
 
     TipoMedicamentoEnum(String descricao) {
         this.descricao = descricao;
@@ -20,7 +20,4 @@ public enum TipoMedicamentoEnum {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 }

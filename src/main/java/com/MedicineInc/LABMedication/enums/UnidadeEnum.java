@@ -6,7 +6,7 @@ public enum UnidadeEnum {
     G("g"),
     ML("mL"),
     PORCENTAGEM("%");
-    private String descricao;
+    private final String descricao;
 
     UnidadeEnum(String descricao) {
 
@@ -17,7 +17,4 @@ public enum UnidadeEnum {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 }
