@@ -51,5 +51,15 @@ public class AdministracaoMedicamentoController {
 
     }
 
+    @DeleteMapping("/{identificador}")
+    public ResponseEntity deletarAdministracaoMedicamento(@PathVariable Long identificador){
+        try {
+            this.service.deletarAdministracaoMedicamento(identificador);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+    }
 
 }

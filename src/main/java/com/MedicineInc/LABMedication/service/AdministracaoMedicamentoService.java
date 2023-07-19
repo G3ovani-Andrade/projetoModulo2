@@ -65,4 +65,9 @@ public class AdministracaoMedicamentoService {
         medicamentoBuscaDTO.getPaciente().setEndereco(enderecoDto);
         return medicamentoBuscaDTO;
     }
+
+    public void deletarAdministracaoMedicamento(Long identificador) {
+        this.repository.findById(identificador).orElseThrow(EntityNotFoundException::new);
+        this.repository.deleteById(identificador);
+    }
 }
