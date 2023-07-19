@@ -1,8 +1,6 @@
 package com.MedicineInc.LABMedication.service;
 
-import com.MedicineInc.LABMedication.dto.AdministracaoMedicamentoAtualizacaoDto;
-import com.MedicineInc.LABMedication.dto.AdministracaoMedicamentoCadastroDTO;
-import com.MedicineInc.LABMedication.dto.AdministracaoMedicamentoResponseDTO;
+import com.MedicineInc.LABMedication.dto.*;
 import com.MedicineInc.LABMedication.entity.MedicamentoEntity;
 import com.MedicineInc.LABMedication.repository.MedicamentoRepository;
 import com.MedicineInc.LABMedication.repository.PacienteRepository;
@@ -31,8 +29,6 @@ public class AdministracaoMedicamentoService {
         medicamento.setAdministracao(LocalDateTime.now());
         medicamento = this.repository.save(medicamento);
         BeanUtils.copyProperties(medicamento,response);
-        response.setTipo(medicamento.getTipo().getDescricao());
-        response.setUnidade(medicamento.getUnidade().getDescricao());
         response.setIdentificador_paciente(medicamento.getPaciente().getId());
         response.setIdentificador_usuario(medicamento.getUsuario().getId());
         return response;
@@ -49,10 +45,24 @@ public class AdministracaoMedicamentoService {
 
         this.repository.save(medicamentoDb);
         BeanUtils.copyProperties(medicamentoDb,response);
-        response.setTipo(medicamentoDb.getTipo().getDescricao());
-        response.setUnidade(medicamentoDb.getUnidade().getDescricao());
         response.setIdentificador_paciente(medicamentoDb.getPaciente().getId());
         response.setIdentificador_usuario(medicamentoDb.getUsuario().getId());
         return response;
+    }
+
+    public AdministracaoMedicamentoBuscaDTO buscarAdministracaoMedicamento(Long identificador) {
+        MedicamentoEntity medicamentoDb = this.repository.findById(identificador).orElseThrow(()->new EntityNotFoundException("Administração de medicamento não encontrado"));
+        AdministracaoMedicamentoBuscaDTO medicamentoBuscaDTO = new AdministracaoMedicamentoBuscaDTO();
+        PacienteResponseDto pacienteDto = new PacienteResponseDto();
+        UsuarioResponseDto usuarioDto = new UsuarioResponseDto();
+        EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
+        BeanUtils.copyProperties(medicamentoDb,medicamentoBuscaDTO);
+        BeanUtils.copyProperties(medicamentoDb.getPaciente(),pacienteDto);
+        BeanUtils.copyProperties(medicamentoDb.getUsuario(),usuarioDto);
+        BeanUtils.copyProperties(medicamentoDb.getPaciente().getEndereco(),enderecoDto);
+        medicamentoBuscaDTO.setPaciente(pacienteDto);
+        medicamentoBuscaDTO.setUsuario(usuarioDto);
+        medicamentoBuscaDTO.getPaciente().setEndereco(enderecoDto);
+        return medicamentoBuscaDTO;
     }
 }
