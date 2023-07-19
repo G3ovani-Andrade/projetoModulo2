@@ -2,6 +2,7 @@ package com.MedicineInc.LABMedication.controller;
 
 import com.MedicineInc.LABMedication.dto.AdministracaoMedicamentoAtualizacaoDto;
 import com.MedicineInc.LABMedication.dto.AdministracaoMedicamentoCadastroDTO;
+import com.MedicineInc.LABMedication.dto.AdministracaoMedicamentoBuscaDTO;
 import com.MedicineInc.LABMedication.dto.AdministracaoMedicamentoResponseDTO;
 import com.MedicineInc.LABMedication.service.AdministracaoMedicamentoService;
 import jakarta.persistence.EntityNotFoundException;
@@ -36,6 +37,16 @@ public class AdministracaoMedicamentoController {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         } catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @GetMapping("/{identificador}")
+    public ResponseEntity<AdministracaoMedicamentoBuscaDTO>  buscarAdministracaoMedicamento(@PathVariable Long identificador){
+        try {
+            return new ResponseEntity<AdministracaoMedicamentoBuscaDTO>(this.service.buscarAdministracaoMedicamento(identificador),HttpStatus.OK);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
         }
 
     }
