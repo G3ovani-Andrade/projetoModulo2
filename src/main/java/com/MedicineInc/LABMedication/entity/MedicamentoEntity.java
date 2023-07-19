@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="medicamento")
@@ -18,7 +18,7 @@ public class MedicamentoEntity {
     @Column(nullable = false)
     private String nomeMedicamento;
     @Column(nullable = false)
-    private Date administracao;
+    private LocalDateTime administracao;
     private TipoMedicamentoEnum tipo;
     @Column(nullable = false)
     private int quantidade;
