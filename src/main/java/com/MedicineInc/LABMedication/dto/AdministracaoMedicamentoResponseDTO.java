@@ -36,8 +36,8 @@ public class AdministracaoMedicamentoResponseDTO {
 
     //mappeamento para medico
     @NotNull(message = "Usuário obrigatório")
-    private Long usuarioID;
+    private Long identificador_usuario;
     // mappeamento para paciente
     @NotNull(message = "Paciente obrigatório")
-    private Long pacienteID;
+    private Long identificador_paciente;
 }
