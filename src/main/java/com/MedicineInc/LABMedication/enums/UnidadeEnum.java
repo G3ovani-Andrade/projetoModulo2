@@ -1,16 +1,23 @@
 package com.MedicineInc.LABMedication.enums;
 
 public enum UnidadeEnum {
-    MG(1,"mg"),
-    MGC(2,"mgc"),
-    G(3,"g"),
-    ML(4,"mL"),
-    PORCENTAGEM(5,"%");
-    private int valor;
+    MG("mg"),
+    MGC("mgc"),
+    G("g"),
+    ML("mL"),
+    PORCENTAGEM("%");
     private String descricao;
 
-    UnidadeEnum(int valor, String descricao) {
-        this.valor = valor;
+    UnidadeEnum(String descricao) {
+
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 }
