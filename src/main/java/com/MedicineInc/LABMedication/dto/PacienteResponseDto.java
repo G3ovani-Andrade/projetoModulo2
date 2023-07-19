@@ -62,4 +62,7 @@ public class PacienteResponseDto {
 
     private EnderecoResponseDto endereco;
 
+    public String getEstadoCivil() {
+        return estadoCivil.getDescricao();
+    }
 }

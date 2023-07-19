@@ -62,4 +62,12 @@ public class UsuarioResponseDto {
     @Size(min = 8, message = "tamanho mínimo 8 caracteres")
     @Size(max = 15, message = "tamanho maximo 15 caracteres")
     private String senha;
+
+    public String getEstadoCivil() {
+        return estadoCivil.getDescricao();
+    }
+
+    public String getEspecializacao() {
+        return especializacao.getDescricao();
+    }
 }
