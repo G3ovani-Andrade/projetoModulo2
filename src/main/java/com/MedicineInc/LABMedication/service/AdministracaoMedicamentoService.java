@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class AdministracaoMedicamentoService {
@@ -69,5 +70,9 @@ public class AdministracaoMedicamentoService {
     public void deletarAdministracaoMedicamento(Long identificador) {
         this.repository.findById(identificador).orElseThrow(EntityNotFoundException::new);
         this.repository.deleteById(identificador);
+    }
+
+    public List<EstatisticaDTO> estatisticas(){
+        return this.repository.estatisticas();
     }
 }
