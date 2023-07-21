@@ -8,6 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EnderecoService {
     @Autowired
@@ -19,5 +22,15 @@ public class EnderecoService {
         endereco = this.repository.save(endereco);
         BeanUtils.copyProperties(endereco,response);
         return response;
+    }
+    public List<EnderecoResponseDto> listarEnderecos() {
+        List<EnderecoResponseDto>enderecosDto = new ArrayList<>();
+        List<EnderecoEntity> enderecosDb = this.repository.findAll();
+        for(EnderecoEntity endereco : enderecosDb){
+            EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
+            BeanUtils.copyProperties(endereco,enderecoDto);
+            enderecosDto.add(enderecoDto);
+        }
+        return enderecosDto;
     }
 }
