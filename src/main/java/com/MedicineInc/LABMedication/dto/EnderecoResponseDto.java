@@ -1,6 +1,7 @@
 package com.MedicineInc.LABMedication.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class EnderecoResponseDto {
     @NotBlank(message = "Logradouro Obrigatório")
     private String logradouro;
 
-    @NotBlank(message = "Número Obrigatório")
+    @NotNull(message = "Número Obrigatório")
     private int numero;
 
     private String complemento;
