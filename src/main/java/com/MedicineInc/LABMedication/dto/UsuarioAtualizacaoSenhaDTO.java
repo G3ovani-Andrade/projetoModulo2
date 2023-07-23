@@ -6,15 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class UsuarioAtualizacaoSenhaDto {
+public class UsuarioAtualizacaoSenhaDTO {
 
-    @NotBlank(message = "Campo senha obrigatório")
+    @NotBlank(message = "Senha atual obrigatório")
     @Size(min = 8, message = "tamanho mínimo 8 caracteres")
-    @Size(max = 15, message = "tamanho maximo 15 caracteres")
     private String senhaAntiga;
 
-    @NotBlank(message = "Campo senha obrigatório")
+    @NotBlank(message = "Senha nova obrigatório")
     @Size(min = 8, message = "tamanho mínimo 8 caracteres")
-    @Size(max = 15, message = "tamanho maximo 15 caracteres")
     private String senhaNova;
 }

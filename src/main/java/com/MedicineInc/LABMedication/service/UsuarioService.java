@@ -1,11 +1,16 @@
 package com.MedicineInc.LABMedication.service;
 
 
-import com.MedicineInc.LABMedication.dto.*;
+import com.MedicineInc.LABMedication.dto.UsuarioAtualizacaoDTO;
+import com.MedicineInc.LABMedication.dto.UsuarioAtualizacaoSenhaDTO;
+import com.MedicineInc.LABMedication.dto.UsuarioCadastroDTO;
+import com.MedicineInc.LABMedication.dto.UsuarioResponseDTO;
 import com.MedicineInc.LABMedication.entity.UsuarioEntity;
 import com.MedicineInc.LABMedication.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 
@@ -14,37 +19,42 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repository;
 
-    public UsuarioResponseDto cadastrarUsuario(UsuarioCadastroDto novoUsuario) {
+    public UsuarioResponseDTO cadastrarUsuario(UsuarioCadastroDTO novoUsuario) {
         UsuarioEntity usuario = new UsuarioEntity();
+        UsuarioResponseDTO responseDto = new UsuarioResponseDTO();
         BeanUtils.copyProperties(novoUsuario, usuario);
-        usuario = this.repository.save(usuario);
-        UsuarioResponseDto responseDto = new UsuarioResponseDto();
+        try {
+            usuario = this.repository.save(usuario);
+        }catch(DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Cpf já cadastrado");
+        }
         BeanUtils.copyProperties(usuario, responseDto);
         return responseDto;
     }
 
-    public UsuarioResponseDto atualizarUsuario(Long id, UsuarioAtualizacaoDto usuarioAtualizado) {
-        UsuarioEntity usuarioDb = this.repository.findById(id).get();//pegar o usuario com id no banco
-        if (usuarioDb.getId() == null || usuarioDb.getId() < 0) { //checar se ele existe
-            new Exception("Usuario não existe");
+    public UsuarioResponseDTO atualizarUsuario(Long id, UsuarioAtualizacaoDTO usuarioAtualizado) {
+        UsuarioEntity usuarioDb = this.repository.findById(id).orElseThrow(()->new EntityNotFoundException("Usuário não encontrado"));
+        UsuarioResponseDTO response = new UsuarioResponseDTO();
+        BeanUtils.copyProperties(usuarioAtualizado, usuarioDb);
+        try {
+            usuarioDb = repository.save(usuarioDb);
+        }catch(DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Cpf já cadastrado");
         }
-        BeanUtils.copyProperties(usuarioAtualizado, usuarioDb);//copia os dados do usuarioAtualizado e coloca no novo usuario
-        usuarioDb = repository.save(usuarioDb); //receber o retorno do banco
-        UsuarioResponseDto response = new UsuarioResponseDto();// novo usuario do tipo response para retornar
-        BeanUtils.copyProperties(usuarioDb, response);//copiando os atributos usuario que vem do banco para o response do
-        response.setSenha(usuarioDb.getSenha());//setando a senha para o response que nao existe no UsuarioAtualizacaoDto
+        BeanUtils.copyProperties(usuarioDb, response);
+        response.setSenha(usuarioDb.getSenha());
         return response;
     }
 
-    public UsuarioResponseDto atualizarSenhaUsuario(Long id, UsuarioAtualizacaoSenhaDto usuarioSenhaAtualizado) throws Exception {
-        UsuarioEntity usuarioDb = this.repository.findById(id).get();//pegar o usuario com id no banco
-        if(!usuarioDb.getSenha().equals(usuarioSenhaAtualizado.getSenhaAntiga())){//comparar a senha do banco com a senha fornecida
-           throw new Exception("A senha fornecida está incorreta");
+    public UsuarioResponseDTO atualizarSenhaUsuario(Long id, UsuarioAtualizacaoSenhaDTO usuarioSenhaAtualizado) throws Exception {
+        UsuarioEntity usuarioDb = this.repository.findById(id).orElseThrow(()->new EntityNotFoundException("Usuário não encontrado"));
+        UsuarioResponseDTO response = new UsuarioResponseDTO();
+        if(!usuarioDb.getSenha().equals(usuarioSenhaAtualizado.getSenhaAntiga())){
+            throw new IllegalArgumentException("A senha fornecida está incorreta");
         }
-        usuarioDb.setSenha(usuarioSenhaAtualizado.getSenhaNova());//atualizar a senha objeto que veio do banco
-        usuarioDb = this.repository.save(usuarioDb);//salvar o objeto com a senha atualizada no banco
-        UsuarioResponseDto response = new UsuarioResponseDto();//criar um novo retorno
-        BeanUtils.copyProperties(usuarioDb,response);//passar as propriedade para o novo retorno
+        usuarioDb.setSenha(usuarioSenhaAtualizado.getSenhaNova());
+        usuarioDb = this.repository.save(usuarioDb);
+        BeanUtils.copyProperties(usuarioDb,response);
         return response;
     }
 }

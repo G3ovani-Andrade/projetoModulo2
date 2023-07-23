@@ -55,7 +55,7 @@ public class AdministracaoMedicamentoService {
         MedicamentoEntity medicamentoDb = this.repository.findById(identificador).orElseThrow(()->new EntityNotFoundException("Administração de medicamento não encontrado"));
         AdministracaoMedicamentoBuscaDTO medicamentoBuscaDTO = new AdministracaoMedicamentoBuscaDTO();
         PacienteResponseDto pacienteDto = new PacienteResponseDto();
-        UsuarioResponseDto usuarioDto = new UsuarioResponseDto();
+        UsuarioResponseDTO usuarioDto = new UsuarioResponseDTO();
         EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
         BeanUtils.copyProperties(medicamentoDb,medicamentoBuscaDTO);
         BeanUtils.copyProperties(medicamentoDb.getPaciente(),pacienteDto);

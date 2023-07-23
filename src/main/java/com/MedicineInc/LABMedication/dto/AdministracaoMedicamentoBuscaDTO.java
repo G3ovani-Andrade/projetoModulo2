@@ -31,7 +31,7 @@ public class AdministracaoMedicamentoBuscaDTO {
 
     //mappeamento para medico
 
-    private UsuarioResponseDto usuario;
+    private UsuarioResponseDTO usuario;
     // mappeamento para paciente
 
     private PacienteResponseDto paciente;

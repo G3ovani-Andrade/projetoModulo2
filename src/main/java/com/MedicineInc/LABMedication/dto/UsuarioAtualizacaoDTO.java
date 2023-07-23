@@ -2,6 +2,7 @@ package com.MedicineInc.LABMedication.dto;
 
 import com.MedicineInc.LABMedication.enums.EspecializacaoClinicaEnum;
 import com.MedicineInc.LABMedication.enums.EstadoCivilEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,10 +12,11 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-public class UsuarioAtualizacaoDto {
+public class UsuarioAtualizacaoDTO {
 
     @NotBlank(message = "Nome Obrigatório")
     private String nomeCompleto;
@@ -23,7 +25,7 @@ public class UsuarioAtualizacaoDto {
     private String genero;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "Data invàlida")
+    @NotNull(message = "Data de Nascimento em formato inválido, use formato dd/MM/yyyy")
     private LocalDate dataNascimento;
 
     @NotNull(message = "CPF obrigatório")
@@ -51,5 +53,15 @@ public class UsuarioAtualizacaoDto {
 
     @NotNull(message = "Especialização Obrigatório")
     private EspecializacaoClinicaEnum especializacao;
+
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public UsuarioAtualizacaoDTO(String dataNascimento){
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            this.dataNascimento = LocalDate.from(formatter.parse(dataNascimento));
+        }catch (Exception e){
+            new Exception();
+        }
+    }
 
 }
