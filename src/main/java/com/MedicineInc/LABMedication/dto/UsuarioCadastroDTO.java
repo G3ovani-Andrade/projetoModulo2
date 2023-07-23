@@ -2,25 +2,22 @@ package com.MedicineInc.LABMedication.dto;
 
 import com.MedicineInc.LABMedication.enums.EspecializacaoClinicaEnum;
 import com.MedicineInc.LABMedication.enums.EstadoCivilEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-@Getter @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class UsuarioResponseDto {
-
-    private Long id;
+@Getter
+@Setter
+public class UsuarioCadastroDTO {
 
     @NotBlank(message = "Nome Obrigatório")
     private String nomeCompleto;
@@ -29,7 +26,7 @@ public class UsuarioResponseDto {
     private String genero;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "Data invàlida")
+    @NotNull(message = "Data de Nascimento em formato inválido, use formato dd/MM/yyyy")
     private LocalDate dataNascimento;
 
     @NotNull(message = "CPF obrigatório")
@@ -60,14 +57,15 @@ public class UsuarioResponseDto {
 
     @NotBlank(message = "Campo senha obrigatório")
     @Size(min = 8, message = "tamanho mínimo 8 caracteres")
-    @Size(max = 15, message = "tamanho maximo 15 caracteres")
     private String senha;
 
-    public String getEstadoCivil() {
-        return estadoCivil.getDescricao();
-    }
-
-    public String getEspecializacao() {
-        return especializacao.getDescricao();
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public UsuarioCadastroDTO(String dataNascimento){
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            this.dataNascimento = LocalDate.from(formatter.parse(dataNascimento));
+        }catch (Exception e){
+            new Exception();
+        }
     }
 }

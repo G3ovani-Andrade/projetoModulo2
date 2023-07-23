@@ -7,15 +7,20 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-public class UsuarioCadastroDto {
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class UsuarioResponseDTO {
+
+    private Long id;
 
     @NotBlank(message = "Nome Obrigatório")
     private String nomeCompleto;
@@ -24,7 +29,7 @@ public class UsuarioCadastroDto {
     private String genero;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "Data inválida")
+    @NotNull(message = "Data invàlida")
     private LocalDate dataNascimento;
 
     @NotNull(message = "CPF obrigatório")
@@ -55,6 +60,13 @@ public class UsuarioCadastroDto {
 
     @NotBlank(message = "Campo senha obrigatório")
     @Size(min = 8, message = "tamanho mínimo 8 caracteres")
-    @Size(max = 15, message = "tamanho maximo 15 caracteres")
     private String senha;
+
+    public String getEstadoCivil() {
+        return estadoCivil.getDescricao();
+    }
+
+    public String getEspecializacao() {
+        return especializacao.getDescricao();
+    }
 }
