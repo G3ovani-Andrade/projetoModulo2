@@ -1,17 +1,22 @@
 package com.MedicineInc.LABMedication.dto;
 
 import com.MedicineInc.LABMedication.enums.EstadoCivilEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
 @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PacienteResponseDTO {
 
     private Long id;
@@ -64,5 +69,17 @@ public class PacienteResponseDTO {
 
     public String getEstadoCivil() {
         return estadoCivil.getDescricao();
+    }
+
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public PacienteResponseDTO(String id) {
+        if(id==null){
+            throw new IllegalArgumentException("Paciente deve ser informado");
+        }
+        try {
+            this.id = Long.valueOf(id);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("Id do paciente deve ser um número");
+        }
     }
 }
