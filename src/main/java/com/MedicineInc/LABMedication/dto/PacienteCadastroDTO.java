@@ -1,6 +1,7 @@
 package com.MedicineInc.LABMedication.dto;
 
 import com.MedicineInc.LABMedication.enums.EstadoCivilEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,11 +13,12 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PacienteCadastroDto {
+public class PacienteCadastroDTO {
 
     @NotBlank(message = "Nome Obrigatório")
     private String nomeCompleto;
@@ -25,7 +27,7 @@ public class PacienteCadastroDto {
     private String genero;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "Data inválida")
+    @NotNull(message = "Data de Nascimento em formato inválido, use formato dd/MM/yyyy")
     private LocalDate dataNascimento;
 
     @NotNull(message = "CPF obrigatório")
@@ -62,7 +64,23 @@ public class PacienteCadastroDto {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate validadeCarteira;
 
-    private EnderecoResponseDto endereco;
+    @NotNull(message = "Endereço deve ser informado")
+    private EnderecoResponseDTO endereco;
 
-
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public PacienteCadastroDTO(String dataNascimento, String validadeCarteira) throws Exception {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            this.dataNascimento = LocalDate.from(formatter.parse(dataNascimento));
+        }catch (Exception e){
+           new Exception();
+        }
+        if(validadeCarteira != null && !(validadeCarteira.isBlank())){
+            try {
+                this.validadeCarteira = LocalDate.from(formatter.parse(validadeCarteira));
+            }catch (Exception e){
+                throw new IllegalArgumentException("Validade da carteira em formato inválido, use formato dd/MM/yyyy");
+            }
+        }
+    }
 }

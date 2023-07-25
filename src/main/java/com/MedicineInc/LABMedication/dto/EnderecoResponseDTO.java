@@ -1,5 +1,6 @@
 package com.MedicineInc.LABMedication.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnderecoResponseDto {
+public class EnderecoResponseDTO {
 
     private Long id;
 
@@ -35,4 +36,18 @@ public class EnderecoResponseDto {
     private String bairro;
 
     private String referencia;
+
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+
+    public EnderecoResponseDTO(String id) {
+        if(id == null){
+            throw new IllegalArgumentException("Endereço deve ser informado");
+        }
+        try {
+            this.id = Long.valueOf(id);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("Id de endereço deve ser um número");
+        }
+
+    }
 }
