@@ -1,5 +1,6 @@
 package com.MedicineInc.LABMedication.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -33,4 +34,12 @@ public class EnderecoCadastroDTO {
     private String bairro;
 
     private String referencia;
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public EnderecoCadastroDTO(String numero) {
+        try {
+            this.numero = Integer.parseInt(numero);
+        }catch (NumberFormatException e){
+            throw  new NumberFormatException("Valor mínimo para número: 1");
+        }
+    }
 }
