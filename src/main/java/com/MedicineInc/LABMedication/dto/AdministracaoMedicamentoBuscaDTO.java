@@ -34,7 +34,7 @@ public class AdministracaoMedicamentoBuscaDTO {
     private UsuarioResponseDTO usuario;
     // mappeamento para paciente
 
-    private PacienteResponseDto paciente;
+    private PacienteResponseDTO paciente;
 
     public String getTipo() {
         return tipo.getDescricao();
