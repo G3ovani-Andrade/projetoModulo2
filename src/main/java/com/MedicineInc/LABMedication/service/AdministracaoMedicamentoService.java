@@ -1,8 +1,10 @@
 package com.MedicineInc.LABMedication.service;
 
 import com.MedicineInc.LABMedication.dto.*;
-import com.MedicineInc.LABMedication.entity.MedicamentoEntity;
-import com.MedicineInc.LABMedication.repository.MedicamentoRepository;
+import com.MedicineInc.LABMedication.entity.AdministracaoDeMedicamentoEntity;
+import com.MedicineInc.LABMedication.entity.PacienteEntity;
+import com.MedicineInc.LABMedication.entity.UsuarioEntity;
+import com.MedicineInc.LABMedication.repository.AdministracaoDeMedicamentoRepository;
 import com.MedicineInc.LABMedication.repository.PacienteRepository;
 import com.MedicineInc.LABMedication.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,17 +18,23 @@ import java.util.List;
 @Service
 public class AdministracaoMedicamentoService {
     @Autowired
-    private MedicamentoRepository repository;
+    private AdministracaoDeMedicamentoRepository repository;
     @Autowired
     private PacienteRepository pacienteRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
     public AdministracaoMedicamentoResponseDTO cadastrarAdministracaoMedicamento(AdministracaoMedicamentoCadastroDTO medicamentoDTO) {
-        MedicamentoEntity medicamento = new MedicamentoEntity();
+        AdministracaoDeMedicamentoEntity medicamento = new AdministracaoDeMedicamentoEntity();
         AdministracaoMedicamentoResponseDTO response = new AdministracaoMedicamentoResponseDTO();
+        PacienteEntity paciente = new PacienteEntity();
+        UsuarioEntity usuario = new UsuarioEntity();
         this.usuarioRepository.findById(medicamentoDTO.getUsuario().getId()).orElseThrow(()->new EntityNotFoundException("Usuário não existe"));
         this.pacienteRepository.findById(medicamentoDTO.getPaciente().getId()).orElseThrow(()->new EntityNotFoundException("Paciente não existe"));
         BeanUtils.copyProperties(medicamentoDTO,medicamento);
+        BeanUtils.copyProperties(medicamentoDTO.getPaciente(),paciente);
+        BeanUtils.copyProperties(medicamentoDTO.getUsuario(),usuario);
+        medicamento.setPaciente(paciente);
+        medicamento.setUsuario(usuario);
         medicamento.setAdministracao(LocalDateTime.now());
         medicamento = this.repository.save(medicamento);
         BeanUtils.copyProperties(medicamento,response);
@@ -35,15 +43,14 @@ public class AdministracaoMedicamentoService {
         return response;
     }
 
-    public AdministracaoMedicamentoResponseDTO atualizarAdimistracaoMedicamento(Long identificador, AdministracaoMedicamentoAtualizacaoDto medicamentoAtualizado) throws Exception {
-        MedicamentoEntity medicamentoDb = this.repository.findById(identificador).orElseThrow(()->new EntityNotFoundException("administração de medicamento não encontrado"));
+    public AdministracaoMedicamentoResponseDTO atualizarAdimistracaoMedicamento(Long identificador, AdministracaoMedicamentoAtualizacaoDTO medicamentoAtualizado){
+        AdministracaoDeMedicamentoEntity medicamentoDb = this.repository.findById(identificador).orElseThrow(()->new EntityNotFoundException("administração de medicamento não encontrada"));
         AdministracaoMedicamentoResponseDTO response = new AdministracaoMedicamentoResponseDTO();
         if(medicamentoAtualizado.getAdministracao() != null){
-            throw new Exception("A data e hora não podem ser modificadas");
+            throw new IllegalArgumentException("A data e hora não podem ser modificadas");
         }
         medicamentoAtualizado.setAdministracao(medicamentoDb.getAdministracao());
         BeanUtils.copyProperties(medicamentoAtualizado,medicamentoDb);
-
         this.repository.save(medicamentoDb);
         BeanUtils.copyProperties(medicamentoDb,response);
         response.setIdentificador_paciente(medicamentoDb.getPaciente().getId());
@@ -52,7 +59,7 @@ public class AdministracaoMedicamentoService {
     }
 
     public AdministracaoMedicamentoBuscaDTO buscarAdministracaoMedicamento(Long identificador) {
-        MedicamentoEntity medicamentoDb = this.repository.findById(identificador).orElseThrow(()->new EntityNotFoundException("Administração de medicamento não encontrado"));
+        AdministracaoDeMedicamentoEntity medicamentoDb = this.repository.findById(identificador).orElseThrow(()->new EntityNotFoundException("Administração de medicamento não encontrada"));
         AdministracaoMedicamentoBuscaDTO medicamentoBuscaDTO = new AdministracaoMedicamentoBuscaDTO();
         PacienteResponseDTO pacienteDto = new PacienteResponseDTO();
         UsuarioResponseDTO usuarioDto = new UsuarioResponseDTO();
@@ -68,7 +75,7 @@ public class AdministracaoMedicamentoService {
     }
 
     public void deletarAdministracaoMedicamento(Long identificador) {
-        this.repository.findById(identificador).orElseThrow(EntityNotFoundException::new);
+        this.repository.findById(identificador).orElseThrow(()->new EntityNotFoundException("Administração de medicamento não encontrada"));
         this.repository.deleteById(identificador);
     }
 

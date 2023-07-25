@@ -4,10 +4,10 @@ import com.MedicineInc.LABMedication.dto.EnderecoResponseDTO;
 import com.MedicineInc.LABMedication.dto.PacienteCadastroDTO;
 import com.MedicineInc.LABMedication.dto.PacienteResponseDTO;
 import com.MedicineInc.LABMedication.entity.EnderecoEntity;
-import com.MedicineInc.LABMedication.entity.MedicamentoEntity;
+import com.MedicineInc.LABMedication.entity.AdministracaoDeMedicamentoEntity;
 import com.MedicineInc.LABMedication.entity.PacienteEntity;
 import com.MedicineInc.LABMedication.repository.EnderecoRepository;
-import com.MedicineInc.LABMedication.repository.MedicamentoRepository;
+import com.MedicineInc.LABMedication.repository.AdministracaoDeMedicamentoRepository;
 import com.MedicineInc.LABMedication.repository.PacienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
@@ -24,7 +24,7 @@ public class PacienteService {
     @Autowired
     private EnderecoRepository repositoryEndereco;
     @Autowired
-    private MedicamentoRepository repositoryMedicamento;
+    private AdministracaoDeMedicamentoRepository repositoryMedicamento;
 
     public PacienteResponseDTO cadastrarPaciente(PacienteCadastroDTO novoPaciente) {
         EnderecoEntity endereco = this.repositoryEndereco.findById(novoPaciente.getEndereco().getId()).orElseThrow(()->new EntityNotFoundException("Endereço não encontrado"));
@@ -87,7 +87,7 @@ public class PacienteService {
 
     public void deletarPaciente(Long identificador){
         this.repository.findById(identificador).orElseThrow(()-> new EntityNotFoundException("Usuário não encontrado"));
-        List<MedicamentoEntity> medicamentos = this.repositoryMedicamento.findByPacienteId(identificador);
+        List<AdministracaoDeMedicamentoEntity> medicamentos = this.repositoryMedicamento.findByPacienteId(identificador);
         if(medicamentos.size()>0){
             throw new IllegalArgumentException("Usuários com medicamentos não podem ser excluídos");
         }

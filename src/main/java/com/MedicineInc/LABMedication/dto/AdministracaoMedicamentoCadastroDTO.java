@@ -1,9 +1,8 @@
 package com.MedicineInc.LABMedication.dto;
 
-import com.MedicineInc.LABMedication.entity.PacienteEntity;
-import com.MedicineInc.LABMedication.entity.UsuarioEntity;
 import com.MedicineInc.LABMedication.enums.TipoMedicamentoEnum;
 import com.MedicineInc.LABMedication.enums.UnidadeEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,12 +19,13 @@ public class AdministracaoMedicamentoCadastroDTO {
     @NotBlank(message = "Nome do medicamento obrigatório")
     private String nomeMedicamento;
 
+    @NotNull(message = "Tipo do mendicamento deve ser informado")
     private TipoMedicamentoEnum tipo;
 
     @Min(value = 1,message = "O valor minimo é 1")
     private int quantidade;
 
-
+    @NotNull(message = "Unidade do mendicamento deve ser informado")
     private UnidadeEnum unidade;
 
     @NotBlank(message = "Observações obrigatório")
@@ -33,9 +33,17 @@ public class AdministracaoMedicamentoCadastroDTO {
 
     //mappeamento para medico
     @NotNull(message = "Usuário obrigatório")
-    private UsuarioEntity usuario;
+    private UsuarioResponseDTO usuario;
     // mappeamento para paciente
     @NotNull(message = "Paciente obrigatório")
-    private PacienteEntity paciente;
+    private PacienteResponseDTO paciente;
 
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public AdministracaoMedicamentoCadastroDTO(String quantidade) throws Exception {
+        try {
+            this.quantidade = Integer.parseInt(quantidade);
+        }catch (NumberFormatException e){
+           throw  new NumberFormatException("Valor mínimo para quantidade: 1");
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.MedicineInc.LABMedication.dto;
 
 import com.MedicineInc.LABMedication.enums.EspecializacaoClinicaEnum;
 import com.MedicineInc.LABMedication.enums.EstadoCivilEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -68,5 +69,18 @@ public class UsuarioResponseDTO {
 
     public String getEspecializacao() {
         return especializacao.getDescricao();
+    }
+
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public UsuarioResponseDTO(String id) {
+        if(id==null){
+            throw new IllegalArgumentException("Usuário deve ser informado");
+        }
+        try {
+            this.id = Long.valueOf(id);
+        }catch (IllegalArgumentException e){
+                throw new IllegalArgumentException("Id do Usuário deve ser um número");
+        }
+
     }
 }
