@@ -1,12 +1,10 @@
 package com.MedicineInc.LABMedication.controller;
 
-import com.MedicineInc.LABMedication.dto.PacienteCadastroDto;
-import com.MedicineInc.LABMedication.dto.PacienteResponseDto;
+import com.MedicineInc.LABMedication.dto.PacienteCadastroDTO;
+import com.MedicineInc.LABMedication.dto.PacienteResponseDTO;
 import com.MedicineInc.LABMedication.service.PacienteService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,57 +18,29 @@ public class PacienteController {
     private PacienteService service;
 
     @PostMapping
-    public ResponseEntity<PacienteResponseDto> cadastrarPaciente(@RequestBody @Valid PacienteCadastroDto novoPaciente){
-        try {
-            return new ResponseEntity<PacienteResponseDto>(this.service.cadastrarPaciente(novoPaciente), HttpStatus.CREATED);
-        }
-        catch (DataIntegrityViolationException e) {
-            return new ResponseEntity("Cpf já Cadastrado", HttpStatus.CONFLICT);
-        }catch (EntityNotFoundException e){
-            return new ResponseEntity("Endereço não encontrado", HttpStatus.BAD_REQUEST);
-        }
-        catch (Exception e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<PacienteResponseDTO> cadastrarPaciente(@RequestBody @Valid PacienteCadastroDTO novoPaciente){
+            return new ResponseEntity<PacienteResponseDTO>(this.service.cadastrarPaciente(novoPaciente), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{identificador}")
-    public ResponseEntity<PacienteResponseDto> atualizarPaciente(@PathVariable Long identificador,@RequestBody @Valid PacienteCadastroDto pacienteAtualizado){
-        try {
+    public ResponseEntity<PacienteResponseDTO> atualizarPaciente(@PathVariable Long identificador, @RequestBody @Valid PacienteCadastroDTO pacienteAtualizado){
             return new ResponseEntity(this.service.atualizarPaciente(identificador,pacienteAtualizado),HttpStatus.OK);
-        }catch (EntityNotFoundException e){
-            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
-        }catch (DataIntegrityViolationException e) {
-            return new ResponseEntity("Cpf já Cadastrado", HttpStatus.CONFLICT);
-        } catch (Exception e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
     }
 
     @GetMapping
-    public ResponseEntity<List<PacienteResponseDto>> buscarPacientes(@RequestParam(required = false)String nome){
+    public ResponseEntity<List<PacienteResponseDTO>> buscarPacientes(@RequestParam(required = false)String nome){
         return new ResponseEntity<>(this.service.buscarPacientes(nome),HttpStatus.OK);
     }
 
     @GetMapping("/{identificador}")
-    public ResponseEntity<PacienteResponseDto> buscarPacientePorId(@PathVariable Long identificador){
-        try {
-            return new ResponseEntity<PacienteResponseDto>(this.service.buscarPacientePorId(identificador),HttpStatus.OK);
-        }catch (EntityNotFoundException e){
-            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<PacienteResponseDTO> buscarPacientePorId(@PathVariable Long identificador){
+            return new ResponseEntity<PacienteResponseDTO>(this.service.buscarPacientePorId(identificador),HttpStatus.OK);
     }
 
 
     @DeleteMapping("/{identificador}")
     public ResponseEntity<Void> deletarPaciente(@PathVariable Long identificador){
-        try {
-            this.service.deletarPaciente(identificador);
-        }catch (EntityNotFoundException e){
-            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
-        }catch (Exception e){
-            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
-        }
+        this.service.deletarPaciente(identificador);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
