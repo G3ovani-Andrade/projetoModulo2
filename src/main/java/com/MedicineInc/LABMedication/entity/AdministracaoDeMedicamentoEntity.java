@@ -9,9 +9,9 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="medicamento")
+@Table(name="administracaoDeMedicamentos")
 @Getter @Setter
-public class MedicamentoEntity {
+public class AdministracaoDeMedicamentoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
