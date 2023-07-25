@@ -1,8 +1,8 @@
 package com.MedicineInc.LABMedication.service;
 
-import com.MedicineInc.LABMedication.dto.EnderecoResponseDto;
-import com.MedicineInc.LABMedication.dto.PacienteCadastroDto;
-import com.MedicineInc.LABMedication.dto.PacienteResponseDto;
+import com.MedicineInc.LABMedication.dto.EnderecoResponseDTO;
+import com.MedicineInc.LABMedication.dto.PacienteCadastroDTO;
+import com.MedicineInc.LABMedication.dto.PacienteResponseDTO;
 import com.MedicineInc.LABMedication.entity.EnderecoEntity;
 import com.MedicineInc.LABMedication.entity.MedicamentoEntity;
 import com.MedicineInc.LABMedication.entity.PacienteEntity;
@@ -26,29 +26,26 @@ public class PacienteService {
     @Autowired
     private MedicamentoRepository repositoryMedicamento;
 
-    public PacienteResponseDto cadastrarPaciente(PacienteCadastroDto novoPaciente) {
-        PacienteEntity paciente = new PacienteEntity();//cria um novo Paciente
-        PacienteResponseDto response = new PacienteResponseDto();//cria uma resposta do tipo PacienteResponseDto
-        EnderecoResponseDto enderecoDTO = new EnderecoResponseDto();//Cria um endereco Dto para response
-        EnderecoEntity endereco = new EnderecoEntity();//cria um endereco para entidade
-        BeanUtils.copyProperties(novoPaciente, paciente);//copia os dados do novo paciente para o pacienteEntity
+    public PacienteResponseDTO cadastrarPaciente(PacienteCadastroDTO novoPaciente) {
+        EnderecoEntity endereco = this.repositoryEndereco.findById(novoPaciente.getEndereco().getId()).orElseThrow(()->new EntityNotFoundException("Endereço não encontrado"));
+        PacienteEntity paciente = new PacienteEntity();
+        PacienteResponseDTO response = new PacienteResponseDTO();
+        EnderecoResponseDTO enderecoDTO = new EnderecoResponseDTO();
+        BeanUtils.copyProperties(novoPaciente, paciente);
         paciente.setEndereco(endereco);
         paciente.getEndereco().setId(novoPaciente.getEndereco().getId());
-        paciente = this.repository.save(paciente);//salva o paciente entity
-        BeanUtils.copyProperties(paciente, response);//copias os dados de retorno do banco para o response
-        endereco = this.repositoryEndereco.findById(paciente.getEndereco().getId()).orElseThrow(EntityNotFoundException::new);
-        BeanUtils.copyProperties(endereco, enderecoDTO);//transforma o endereco que veio do banco de dados para endereco Dto
-        response.setEndereco(enderecoDTO);//adicona o endereco dto dentro do paciente dto
+        paciente = this.repository.save(paciente);
+        BeanUtils.copyProperties(paciente, response);
+        BeanUtils.copyProperties(endereco, enderecoDTO);
+        response.setEndereco(enderecoDTO);
         return response;
     }
 
-    public PacienteResponseDto atualizarPaciente(Long id, PacienteCadastroDto pacienteAtualizado) throws Exception {
-        PacienteEntity pacienteBd = new PacienteEntity();
-        EnderecoEntity enderecoBd = new EnderecoEntity();
-        PacienteResponseDto responseDto = new PacienteResponseDto();
-        EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
-        pacienteBd = this.repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
-        enderecoBd = this.repositoryEndereco.findById(pacienteAtualizado.getEndereco().getId()).orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+    public PacienteResponseDTO atualizarPaciente(Long id, PacienteCadastroDTO pacienteAtualizado){
+        PacienteEntity pacienteBd = this.repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+        EnderecoEntity enderecoBd = this.repositoryEndereco.findById(pacienteAtualizado.getEndereco().getId()).orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+        PacienteResponseDTO responseDto = new PacienteResponseDTO();
+        EnderecoResponseDTO enderecoDto = new EnderecoResponseDTO();
         BeanUtils.copyProperties(pacienteAtualizado, pacienteBd);
         pacienteBd.setEndereco(enderecoBd);
         pacienteBd = this.repository.save(pacienteBd);
@@ -58,18 +55,18 @@ public class PacienteService {
         return responseDto;
     }
 
-    public List<PacienteResponseDto> buscarPacientes(String nomePaciente) {
-        List<PacienteResponseDto> pacientesDto = new ArrayList<>();
+    public List<PacienteResponseDTO> buscarPacientes(String nomePaciente) {
+        List<PacienteResponseDTO> pacientesDto = new ArrayList<>();
         List<PacienteEntity> pacientesDb;
         if (nomePaciente == null || nomePaciente.isEmpty()) {
             pacientesDb = this.repository.findAll();
         } else {
-            pacientesDb = this.repository.findByNomeCompletoContains(nomePaciente);
+            pacientesDb = this.repository.findByNomeCompleto(nomePaciente);
         }
 
         for (PacienteEntity paciente : pacientesDb) {
-            EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
-            PacienteResponseDto pacienteDto = new PacienteResponseDto();
+            EnderecoResponseDTO enderecoDto = new EnderecoResponseDTO();
+            PacienteResponseDTO pacienteDto = new PacienteResponseDTO();
             BeanUtils.copyProperties(paciente, pacienteDto);
             BeanUtils.copyProperties(paciente.getEndereco(), enderecoDto);
             pacienteDto.setEndereco(enderecoDto);
@@ -78,9 +75,9 @@ public class PacienteService {
         return pacientesDto;
     }
 
-    public PacienteResponseDto buscarPacientePorId(Long identificador) {
-        PacienteResponseDto pacienteDto = new PacienteResponseDto();
-        EnderecoResponseDto enderecoDto = new EnderecoResponseDto();
+    public PacienteResponseDTO buscarPacientePorId(Long identificador) {
+        PacienteResponseDTO pacienteDto = new PacienteResponseDTO();
+        EnderecoResponseDTO enderecoDto = new EnderecoResponseDTO();
         PacienteEntity pacienteDb = this.repository.findById(identificador).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
         BeanUtils.copyProperties(pacienteDb, pacienteDto);
         BeanUtils.copyProperties(pacienteDb.getEndereco(), enderecoDto);
@@ -88,11 +85,11 @@ public class PacienteService {
         return pacienteDto;
     }
 
-    public void deletarPaciente(Long identificador) throws Exception {
+    public void deletarPaciente(Long identificador){
         this.repository.findById(identificador).orElseThrow(()-> new EntityNotFoundException("Usuário não encontrado"));
         List<MedicamentoEntity> medicamentos = this.repositoryMedicamento.findByPacienteId(identificador);
         if(medicamentos.size()>0){
-            throw new Exception("Usuários com medicamentos não podem ser excluídos");
+            throw new IllegalArgumentException("Usuários com medicamentos não podem ser excluídos");
         }
         this.repository.deleteById(identificador);
     }

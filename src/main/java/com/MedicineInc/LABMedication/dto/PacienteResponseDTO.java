@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.time.LocalDate;
 
 @Getter @Setter
-public class PacienteResponseDto {
+public class PacienteResponseDTO {
 
     private Long id;
 
@@ -60,7 +60,7 @@ public class PacienteResponseDto {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private String validadeCarteira;
 
-    private EnderecoResponseDto endereco;
+    private EnderecoResponseDTO endereco;
 
     public String getEstadoCivil() {
         return estadoCivil.getDescricao();

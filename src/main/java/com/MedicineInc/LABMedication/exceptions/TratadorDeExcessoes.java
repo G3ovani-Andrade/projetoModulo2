@@ -37,7 +37,6 @@ public class TratadorDeExcessoes {
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> tratarConflitoCpf(DataIntegrityViolationException e){
-        return new ResponseEntity<>(e.getMessage(),HttpStatus.CONFLICT);
+        return new ResponseEntity<>("Cpf já cadastrado",HttpStatus.CONFLICT);
     }
-
 }

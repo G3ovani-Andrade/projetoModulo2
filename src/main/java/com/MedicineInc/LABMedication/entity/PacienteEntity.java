@@ -29,7 +29,7 @@ public class PacienteEntity extends PessoaEntity{
     private LocalDate validadeCarteira;
 
     //fazer mappeamento para endereco
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "endereco_id",referencedColumnName = "id",nullable = false)
     private EnderecoEntity endereco;
     
