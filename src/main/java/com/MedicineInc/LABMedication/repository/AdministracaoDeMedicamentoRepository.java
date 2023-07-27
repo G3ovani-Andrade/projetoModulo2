@@ -13,6 +13,6 @@ public interface AdministracaoDeMedicamentoRepository extends JpaRepository<Admi
 
     List<AdministracaoDeMedicamentoEntity> findByPacienteId(Long identificador);
 
-    @Query(value = "SELECT P.NOME_COMPLETO as nome_completo,COUNT(*)as total_medicamentos FROM ADMINISTRACAO_DE_MEDICAMENTOS M JOIN PACIENTE P ON P.ID = M.PACIENTE_ID GROUP BY P.ID",nativeQuery = true)
+    @Query(value = "SELECT P.NOME_COMPLETO as nome_completo,COUNT(*)as total_medicamentos FROM ADMINISTRACAO_DE_MEDICAMENTOS M JOIN PACIENTES P ON P.ID = M.PACIENTE_ID GROUP BY P.ID",nativeQuery = true)
     List<EstatisticaDTO> estatisticas();
 }
