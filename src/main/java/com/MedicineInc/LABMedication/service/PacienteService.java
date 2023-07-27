@@ -42,7 +42,7 @@ public class PacienteService {
     }
 
     public PacienteResponseDTO atualizarPaciente(Long id, PacienteCadastroDTO pacienteAtualizado){
-        PacienteEntity pacienteBd = this.repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+        PacienteEntity pacienteBd = this.repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
         EnderecoEntity enderecoBd = this.repositoryEndereco.findById(pacienteAtualizado.getEndereco().getId()).orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
         PacienteResponseDTO responseDto = new PacienteResponseDTO();
         EnderecoResponseDTO enderecoDto = new EnderecoResponseDTO();
@@ -78,7 +78,7 @@ public class PacienteService {
     public PacienteResponseDTO buscarPacientePorId(Long identificador) {
         PacienteResponseDTO pacienteDto = new PacienteResponseDTO();
         EnderecoResponseDTO enderecoDto = new EnderecoResponseDTO();
-        PacienteEntity pacienteDb = this.repository.findById(identificador).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+        PacienteEntity pacienteDb = this.repository.findById(identificador).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
         BeanUtils.copyProperties(pacienteDb, pacienteDto);
         BeanUtils.copyProperties(pacienteDb.getEndereco(), enderecoDto);
         pacienteDto.setEndereco(enderecoDto);
@@ -86,10 +86,10 @@ public class PacienteService {
     }
 
     public void deletarPaciente(Long identificador){
-        this.repository.findById(identificador).orElseThrow(()-> new EntityNotFoundException("Usuário não encontrado"));
+        this.repository.findById(identificador).orElseThrow(()-> new EntityNotFoundException("Paciente não encontrado"));
         List<AdministracaoDeMedicamentoEntity> medicamentos = this.repositoryMedicamento.findByPacienteId(identificador);
         if(medicamentos.size()>0){
-            throw new IllegalArgumentException("Usuários com medicamentos não podem ser excluídos");
+            throw new IllegalArgumentException("Paciente com medicamentos não podem ser excluídos");
         }
         this.repository.deleteById(identificador);
     }

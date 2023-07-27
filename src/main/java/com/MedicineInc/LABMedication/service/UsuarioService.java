@@ -10,7 +10,6 @@ import com.MedicineInc.LABMedication.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 
@@ -23,11 +22,7 @@ public class UsuarioService {
         UsuarioEntity usuario = new UsuarioEntity();
         UsuarioResponseDTO responseDto = new UsuarioResponseDTO();
         BeanUtils.copyProperties(novoUsuario, usuario);
-        try {
-            usuario = this.repository.save(usuario);
-        }catch(DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Cpf já cadastrado");
-        }
+        usuario = this.repository.save(usuario);
         BeanUtils.copyProperties(usuario, responseDto);
         return responseDto;
     }
@@ -36,11 +31,7 @@ public class UsuarioService {
         UsuarioEntity usuarioDb = this.repository.findById(id).orElseThrow(()->new EntityNotFoundException("Usuário não encontrado"));
         UsuarioResponseDTO response = new UsuarioResponseDTO();
         BeanUtils.copyProperties(usuarioAtualizado, usuarioDb);
-        try {
-            usuarioDb = repository.save(usuarioDb);
-        }catch(DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Cpf já cadastrado");
-        }
+        usuarioDb = repository.save(usuarioDb);
         BeanUtils.copyProperties(usuarioDb, response);
         response.setSenha(usuarioDb.getSenha());
         return response;

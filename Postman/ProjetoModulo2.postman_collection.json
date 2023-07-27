@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "30ad6c87-7685-4f7f-b780-d0aec294ad58",
+		"name": "ProjetoModulo2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28099569"
+	},
+	"item": [
+		{
+			"name": "usuario",
+			"item": [
+				{
+					"name": "Cadastro Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"especializacao\":2,\r\n    \"estadoCivil\":4,\r\n    \"dataNascimento\":\"28/09/1980\",\r\n    \"senha\": \"Yh6zIIeUi1\",\r\n    \"cpf\":\"17889132212\",\r\n    \"crmUf\": \"101564/sp\",\r\n    \"email\": \"analuanapinto@bravo.com.br\",\r\n    \"genero\":\"Feminino\",\r\n    \"naturalidade\":\"santa Catarina\",\r\n    \"nomeCompleto\": \"Analu Ana Pinto\",\r\n    \"rg\": \"428807094\",\r\n    \"telefone\": \"9629309903\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizacao usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"especializacao\":3,\r\n    \"estadoCivil\":1,\r\n    \"dataNascimento\":\"30/06/1996\",\r\n    \"senha\": \"12345678\",\r\n    \"cpf\":\"60451046099\",\r\n    \"crmUf\": \"164654665/sc\",\r\n    \"email\": \"roberto_marcos_dapaz@igly.com.br\",\r\n    \"genero\":\"masculino\",\r\n    \"naturalidade\":\"santa Catarina\",\r\n    \"nomeCompleto\": \"Roberto Marcos Rafael da Paz\",\r\n    \"rg\": \"327725370\",\r\n    \"telefone\": \"96981313083\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizacao senha usuario",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senhaAntiga\":\"DEbbGDPtAg\",\r\n    \"senhaNova\":\"12345555\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuarios/1/senha",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"1",
+								"senha"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "Cadastro Paciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeCompleto\": \"Sebastiana Rosa Lúcia da Silva\",\r\n    \"estadoCivil\":1,\r\n    \"dataNascimento\":\"22/02/1960\",\r\n    \"cpf\":\"70597846324\",\r\n    \"email\": \"sebastiana.rosa.dasilva@hotmai.com\",\r\n    \"genero\":\"Feminino\",\r\n    \"naturalidade\":\"santa Catarina\",\r\n    \"rg\": \"173612568\",\r\n    \"telefone\": \"9228781746\",\r\n    \"contatoEmergencia\":\"92991740060\",\r\n    \"alergias\":\"Glifage\",\r\n    \"cuidadosEspecificos\":\"Diabetes tipo2\",\r\n    \"convenio\":\"\",\r\n    \"numeroCarteira\":\"\",\r\n    \"validadeCarteira\":\"\",\r\n    \"endereco\":{\r\n        \"id\":\"1\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizacao paciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeCompleto\": \"Sebastiana Rosa Lúcia da Silva\",\r\n    \"estadoCivil\":2,\r\n    \"dataNascimento\":\"22/02/1960\",\r\n    \"cpf\":\"43232988032\",\r\n    \"email\": \"sebastiana.rosa.dasilva@hotmai.com\",\r\n    \"genero\":\"Feminino\",\r\n    \"naturalidade\":\"santa Catarina\",\r\n    \"rg\": \"173612568\",\r\n    \"telefone\": \"9228781746\",\r\n    \"contatoEmergencia\":\"92991740060\",\r\n    \"alergias\":\"Paracetamol\",\r\n    \"cuidadosEspecificos\":\"\",\r\n    \"convenio\":\"\",\r\n    \"numeroCarteira\":\"\",\r\n    \"validadeCarteira\":\"\",\r\n    \"endereco\":{\r\n        \"id\":\"7\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar pacientes por nome",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "nome",
+								"value": "Isa",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/pacientes?nome=isabel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "isabel"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar paciente pelo id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pacientes/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar paciente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pacientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "administracao de medicamento",
+			"item": [
+				{
+					"name": "cadastro administracao de medicamentos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeMedicamento\":\"dorflex\",\r\n    \"tipo\":1,\r\n    \"quantidade\":10,\r\n    \"unidade\":1,\r\n    \"observacoes\":\"tomar em 12 em 12 horas\",\r\n    \"usuario\":{\"id\":1},\r\n    \"paciente\":{\"id\":4}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizacao de administracao de medicamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    //\"administracao\":\"25/10/1995 10:10:55\",\r\n    \"tipo\":4,\r\n    \"quantidade\":100,\r\n    \"unidade\":4,\r\n    \"observacoes\":\"tomar em 12 em 12 horas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicamentos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicamentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar administracao medicamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/medicamentos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicamentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar administracao medicamento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/medicamentos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicamentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "estatistica",
+			"item": [
+				{
+					"name": "http://localhost:8080/estatisticas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/estatisticas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estatisticas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "endereco",
+			"item": [
+				{
+					"name": "cadastro endereco",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cep\": \"74085490\",\r\n    \"cidade\": \"Ususanga\",\r\n    \"estado\": \"Goiás\",\r\n    \"logradouro\": \"Rua 121A\",\r\n    \"numero\": 15,\r\n    \"complemento\": \"\",\r\n    \"bairro\": \"Setor Sul\",\r\n    \"referencia\": \"proximo ao bar do algusto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/enderecos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"enderecos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar enderecos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/enderecos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"enderecos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
