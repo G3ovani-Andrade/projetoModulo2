@@ -36,7 +36,7 @@ ou faça download do projeto
    - Configure o usuário do banco de dados  
    - Configure a senha do banco de dados 
 4. Crie o banco de dados conforme a configuração do arquivo 'application.properties'
-Execute o sistema.
+5. Execute o sistema.
 
 <h2 align="center">Melhorias Futuras</h2>
 
