@@ -34,16 +34,16 @@ ou faça download do projeto
 - Configure o nome do banco de dados e a porta que deseja utilizar
 - Configure o usuário do banco de dados  
 - Configure a senha do banco de dados 
-Crie o banco de dados conforme a configuração do arquivo 'application.properties'
+4. Crie o banco de dados conforme a configuração do arquivo 'application.properties'
 Execute o sistema.
 
 <h2 align="center">Melhorias Futuras</h2>
-1- Sistema de criptografia de senhas
 1. Sistema de criptografia de senhas
-2. Sistema de login e Roles
-3. Implementar funções para validar Enuns
-4. Implementar função para validar datas
-5. Implementar busca de pacientes por email
-6. implementar busca de pacientes por cpf
-7. Implementar função para nao aceitar medicamentos listados nas alergias
-8. Implementar sistema para usuários acessar seus medicamentos receitados
+2. Sistema de criptografia de senhas
+3. Sistema de login e Roles
+4. Implementar funções para validar Enuns
+5. Implementar função para validar datas
+6. Implementar busca de pacientes por email
+7. implementar busca de pacientes por cpf
+8. Implementar função para nao aceitar medicamentos listados nas alergias
+9. Implementar sistema para usuários acessar seus medicamentos receitados
