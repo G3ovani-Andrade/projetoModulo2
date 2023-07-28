@@ -27,6 +27,7 @@ manipulação e com mensagens explicativas para orientar os usuários.
 8. Postgresql Driver
 
 <h2 align="center">Como executar</h2>
+
 1. Clone o repositório https://github.com/G3ovani-Andrade/projetoModulo2.git
 ou faça download do projeto
 2. Abra em sua IDE
@@ -38,12 +39,14 @@ ou faça download do projeto
 Execute o sistema.
 
 <h2 align="center">Melhorias Futuras</h2>
-    1. Sistema de criptografia de senhas;
-    2. Sistema de criptografia de senhas;
-    3. Sistema de login e Roles;
-    4. Implementar funções para validar Enuns;
-    5. Implementar função para validar datas;
-    6. Implementar busca de pacientes por email;
-    7. implementar busca de pacientes por cpf;
-    8. Implementar função para nao aceitar medicamentos listados nas alergias;
-    9. Implementar sistema para usuários acessar seus medicamentos receitados;
+
+1. Sistema de criptografia de senhas;
+2. Sistema de login e Roles;
+3. Implementar funções para validar Enuns;
+4. Implementar função para validar datas;
+5. Implementar busca de pacientes por email;
+6. implementar busca de pacientes por cpf;
+7. Implementar função para nao aceitar medicamentos listados nas alergias;
+8. Implementar sistema para usuários acessar seus medicamentos receitados;
+9. Sistema de criptografia de senhas;
+    
