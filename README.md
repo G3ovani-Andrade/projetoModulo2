@@ -31,19 +31,19 @@ manipulação e com mensagens explicativas para orientar os usuários.
 ou faça download do projeto
 2. Abra em sua IDE
 3. Configure o arquivo 'application.properties':
-- Configure o nome do banco de dados e a porta que deseja utilizar
-- Configure o usuário do banco de dados  
-- Configure a senha do banco de dados 
+   - Configure o nome do banco de dados e a porta que deseja utilizar
+   - Configure o usuário do banco de dados  
+   - Configure a senha do banco de dados 
 4. Crie o banco de dados conforme a configuração do arquivo 'application.properties'
 Execute o sistema.
 
 <h2 align="center">Melhorias Futuras</h2>
-1. Sistema de criptografia de senhas
-2. Sistema de criptografia de senhas
-3. Sistema de login e Roles
-4. Implementar funções para validar Enuns
-5. Implementar função para validar datas
-6. Implementar busca de pacientes por email
-7. implementar busca de pacientes por cpf
-8. Implementar função para nao aceitar medicamentos listados nas alergias
-9. Implementar sistema para usuários acessar seus medicamentos receitados
+    1. Sistema de criptografia de senhas;
+    2. Sistema de criptografia de senhas;
+    3. Sistema de login e Roles;
+    4. Implementar funções para validar Enuns;
+    5. Implementar função para validar datas;
+    6. Implementar busca de pacientes por email;
+    7. implementar busca de pacientes por cpf;
+    8. Implementar função para nao aceitar medicamentos listados nas alergias;
+    9. Implementar sistema para usuários acessar seus medicamentos receitados;
