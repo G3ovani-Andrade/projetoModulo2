@@ -46,7 +46,7 @@ Execute o sistema.
 4. Implementar função para validar datas;
 5. Implementar busca de pacientes por email;
 6. implementar busca de pacientes por cpf;
-7. Implementar função para nao aceitar medicamentos listados nas alergias;
-8. Implementar sistema para usuários acessar seus medicamentos receitados;
+7. Implementar função para não aceitar medicamentos listados nas alergias;
+8. Implementar sistema para usuários acessarem os seus medicamentos receitados;
 9. Sistema de criptografia de senhas;
     
