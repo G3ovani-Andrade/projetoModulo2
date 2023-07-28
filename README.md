@@ -34,10 +34,11 @@ ou faça download do projeto
 - Configure o nome do banco de dados e a porta que deseja utilizar
 - Configure o usuário do banco de dados  
 - Configure a senha do banco de dados 
-4. Crie o banco de dados conforme a configuracao do arquivo 'application.properties'
-5. Execute o sistema.
+Crie o banco de dados conforme a configuração do arquivo 'application.properties'
+Execute o sistema.
 
 <h2 align="center">Melhorias Futuras</h2>
+1- Sistema de criptografia de senhas
 1. Sistema de criptografia de senhas
 2. Sistema de login e Roles
 3. Implementar funções para validar Enuns
