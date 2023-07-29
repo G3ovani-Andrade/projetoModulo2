@@ -24,7 +24,6 @@ manipulação e com mensagens explicativas para orientar os usuários.
 5. Validation
 6. Spring Data Jpa
 7. Spring Web
-8. Postgresql Driver
 
 <h2 align="center">Como executar</h2>
 
