@@ -39,13 +39,12 @@ ou faça download do projeto
 
 <h2 align="center">Melhorias Futuras</h2>
 
-1. Sistema de criptografia de senhas;
-2. Sistema de login e Roles;
-3. Implementar funções para validar Enuns;
-4. Implementar função para validar datas;
-5. Implementar busca de pacientes por email;
-6. implementar busca de pacientes por cpf;
-7. Implementar função para não aceitar medicamentos listados nas alergias;
-8. Implementar sistema para usuários acessarem os seus medicamentos receitados;
-9. Sistema de criptografia de senhas;
+1. Sistema de criptografia de senhas
+2. Sistema de login e Roles
+3. Implementar funções para validar Enuns
+4. Implementar função para validar datas
+5. Implementar busca de pacientes por email
+6. implementar busca de pacientes por cpf
+7. Implementar função para não aceitar medicamentos listados nas alergias
+8. Criar um interface para pacientes 
     
