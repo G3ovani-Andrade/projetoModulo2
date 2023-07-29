@@ -46,5 +46,5 @@ ou faça download do projeto
 5. Implementar busca de pacientes por email
 6. implementar busca de pacientes por cpf
 7. Implementar função para não aceitar medicamentos listados nas alergias
-8. Criar um interface para pacientes 
+8. Criar uma interface para pacientes 
     
