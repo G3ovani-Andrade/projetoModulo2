@@ -3,7 +3,7 @@
 
 <div align="center">
   <a href="https://drive.google.com/file/d/10ksGnqTLG9ewBjx55IVcHEIQMlp3oPsG/view?usp=sharing">
-  <img src="https://private-user-images.githubusercontent.com/124536228/256688598-3fe60b2f-35b7-42d0-9156-40abfa660d90.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTA1MDIzNTksIm5iZiI6MTY5MDUwMjA1OSwicGF0aCI6Ii8xMjQ1MzYyMjgvMjU2Njg4NTk4LTNmZTYwYjJmLTM1YjctNDJkMC05MTU2LTQwYWJmYTY2MGQ5MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMwNzI3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMDcyN1QyMzU0MTlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xNzI3YjM3NjNhYzE5NDU1YzU1MzQ0YjEwNzNlYzRiMjY2NDk5MjI1ZjU4NDU3Y2M2ZDE2NDBhZDg3MTJiOWZmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.vDWZfriK3NkO-z6FyItsz-ldXH_LW86T345p35w5KWY"/>
+  <img src="https://github.com/G3ovani-Andrade/projetoModulo2/assets/124536228/bedd950c-41ca-4acc-84b7-55b9d2c6be41"/>
   </a>
 </div>
 
